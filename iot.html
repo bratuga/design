@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ModernUX IoT Lab</title>
+<link rel="stylesheet" href="iot.css">
+</head>
+<body>
+<header class="iot-topbar">
+  <a href="index.html" class="back-link">← ModernUX Testbench</a>
+  <div class="iot-title"><strong>IoT UI Lab</strong><span>OLED · e-paper · TFT · touch</span></div>
+  <div class="iot-actions">
+    <button id="themeBtn">◐ Tema</button>
+    <select id="deviceMode">
+      <option value="oled">OLED 128×64</option>
+      <option value="epaper">E-paper 296×128</option>
+      <option value="tft">TFT 320×240</option>
+      <option value="touch">Touch 480×320</option>
+    </select>
+  </div>
+</header>
+
+<main class="iot-main">
+<section class="intro">
+  <span class="eyebrow">MODERNUX EMBEDDED</span>
+  <h1>Laboratório para dispositivos IoT</h1>
+  <p>Simulação visual e funcional de interfaces de baixo consumo e baixa resolução.</p>
+</section>
+
+<section class="device-workbench">
+  <div class="simulator-panel">
+    <div class="simulator-toolbar">
+      <div>
+        <strong>Simulador</strong>
+        <small id="simMeta">128×64 · 1-bit OLED</small>
+      </div>
+      <div class="segmented">
+        <button class="active" data-screen="home">Home</button>
+        <button data-screen="climate">Clima</button>
+        <button data-screen="relay">Relés</button>
+        <button data-screen="status">Estado</button>
+      </div>
+    </div>
+
+    <div class="device-stage">
+      <div class="device-shell oled" id="deviceShell">
+        <div class="display" id="display">
+          <div class="screen active" data-screen="home">
+            <div class="mini-header"><span>ModernUX</span><span>10:24</span></div>
+            <div class="hero-value"><strong>22.4°</strong><span>48%</span></div>
+            <div class="mini-row"><span>VMC</span><b>AUTO</b></div>
+            <div class="mini-row accent"><span>▌ Bypass</span><b>OPEN</b></div>
+          </div>
+
+          <div class="screen" data-screen="climate">
+            <div class="mini-header"><span>Clima</span><span>● Wi-Fi</span></div>
+            <div class="sensor-grid">
+              <div><small>TEMP</small><strong>22.4°</strong></div>
+              <div><small>HUM</small><strong>48%</strong></div>
+              <div><small>CO₂</small><strong>612</strong></div>
+              <div><small>AIR</small><strong>GOOD</strong></div>
+            </div>
+          </div>
+
+          <div class="screen" data-screen="relay">
+            <div class="mini-header"><span>Relés</span><span>KNX</span></div>
+            <div class="relay-list">
+              <button data-relay="1"><span>R1 Bomba</span><b>ON</b></button>
+              <button data-relay="2"><span>R2 Piso 1</span><b>OFF</b></button>
+              <button data-relay="3"><span>R3 Piso 2</span><b>ON</b></button>
+              <button data-relay="4"><span>R4 Aux</span><b>OFF</b></button>
+            </div>
+          </div>
+
+          <div class="screen" data-screen="status">
+            <div class="mini-header"><span>Sistema</span><span>12d 07h</span></div>
+            <div class="status-lines">
+              <span>Wi-Fi <b>-62 dBm</b></span>
+              <span>Heap <b>184 KB</b></span>
+              <span>KNX RX <b>1284</b></span>
+              <span>Errors <b>0</b></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hardware-buttons">
+          <button id="prevBtn">‹</button>
+          <button id="selectBtn">●</button>
+          <button id="nextBtn">›</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="control-panel">
+    <h2>Controlo de teste</h2>
+    <label>Temperatura
+      <input id="tempRange" type="range" min="10" max="35" step=".1" value="22.4">
+      <output id="tempOut">22.4 °C</output>
+    </label>
+    <label>Humidade
+      <input id="humRange" type="range" min="20" max="90" value="48">
+      <output id="humOut">48 %</output>
+    </label>
+    <label>RSSI
+      <input id="rssiRange" type="range" min="-95" max="-35" value="-62">
+      <output id="rssiOut">-62 dBm</output>
+    </label>
+    <div class="toggle-row"><span>Wi-Fi</span><label class="switch"><input id="wifiToggle" type="checkbox" checked><span></span></label></div>
+    <div class="toggle-row"><span>KNX</span><label class="switch"><input id="knxToggle" type="checkbox" checked><span></span></label></div>
+    <div class="toggle-row"><span>Alarme</span><label class="switch"><input id="alarmToggle" type="checkbox"><span></span></label></div>
+  </aside>
+</section>
+
+<section class="comparison">
+  <article class="card">
+    <span class="tag">OLED 128×64</span>
+    <h2>Modo mono</h2>
+    <p>Sem sombras, sem transparências, contraste máximo e hierarquia por forma.</p>
+    <div class="mini-preview mono">
+      <div><span>CLIMA</span><span>10:24</span></div>
+      <strong>22.4°C</strong>
+      <small>▌ AUTO · FAN 2</small>
+    </div>
+  </article>
+
+  <article class="card">
+    <span class="tag">E-paper</span>
+    <h2>Atualização lenta</h2>
+    <p>Blocos estáveis, refresh parcial e sem indicadores que dependam de animação.</p>
+    <div class="mini-preview paper">
+      <div><b>CASA</b><span>ONLINE</span></div>
+      <strong>21.8°</strong>
+      <small>48% · CO₂ 590 ppm</small>
+    </div>
+  </article>
+
+  <article class="card">
+    <span class="tag">TFT 320×240</span>
+    <h2>Cor reduzida</h2>
+    <p>Cor funcional para estado, mantendo a assinatura azul do sistema.</p>
+    <div class="mini-preview color">
+      <div><b>VMC</b><span class="ok">AUTO</span></div>
+      <strong>22.4°</strong>
+      <small class="warn">Filtro: 82%</small>
+    </div>
+  </article>
+
+  <article class="card">
+    <span class="tag">Touch 480×320</span>
+    <h2>Controlos maiores</h2>
+    <p>Targets de toque grandes e navegação curta para dispositivos de parede.</p>
+    <div class="touch-preview">
+      <button>−</button><strong>22.5°</strong><button>+</button>
+    </div>
+  </article>
+</section>
+
+<section class="telemetry">
+  <article class="card wide">
+    <div class="section-head"><div><span class="signal"></span><h2>Telemetria simulada</h2></div><button id="randomizeBtn">Gerar valores</button></div>
+    <div class="telemetry-grid" id="telemetryGrid"></div>
+  </article>
+  <article class="card">
+    <div class="section-head"><h2>Estados</h2></div>
+    <ul class="state-list">
+      <li><span class="dot green"></span><div><strong>Normal</strong><small>Operação sem limitações</small></div></li>
+      <li><span class="dot orange"></span><div><strong>Atenção</strong><small>Valor fora do intervalo ideal</small></div></li>
+      <li><span class="dot red"></span><div><strong>Erro</strong><small>Intervenção necessária</small></div></li>
+      <li><span class="dot blue"></span><div><strong>Manual</strong><small>Controlo local ativo</small></div></li>
+    </ul>
+  </article>
+</section>
+</main>
+<script src="iot.js"></script>
+</body>
+</html>
