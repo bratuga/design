@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f4f8fc">
+<title>ModernUX-UI Testbench</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="light" data-density="comfortable" data-shell="web">
+<div class="app-shell">
+<aside class="rail" aria-label="Navegação principal">
+  <div class="brand-mark">M</div>
+  <div class="orb-wrap">
+    <button id="menuOrb" class="menu-orb" aria-expanded="false" aria-label="Abrir menu">☰</button>
+    <nav id="fanMenu" class="fan-menu" aria-label="Menu rápido">
+      <button data-page="overview" aria-label="Visão geral">⌂</button>
+      <button data-page="tables" aria-label="Tabelas">▤</button>
+      <button data-page="charts" aria-label="Gráficos">▥</button>
+      <button data-page="workflow" aria-label="Processos">✓</button>
+      <button data-page="settings" aria-label="Configuração">⚙</button>
+    </nav>
+  </div>
+  <nav class="rail-icons" aria-label="Atalhos">
+    <button data-page="overview" title="Visão geral">⌂</button>
+    <button data-page="tables" title="Tabelas">▤</button>
+    <button data-page="charts" title="Gráficos">▥</button>
+    <button data-page="workflow" title="Processos">✓</button>
+    <button data-page="settings" title="Configuração">⚙</button>
+  </nav>
+  <div class="rail-bottom"><button id="themeToggle" title="Alternar tema">◐</button></div>
+</aside>
+
+<header class="topbar">
+  <div class="app-identity">
+    <div class="app-logo">MX</div>
+    <div><strong>ModernUX Testbench</strong><small>Responsive design lab</small></div>
+  </div>
+  <label class="searchbox"><span>⌕</span><input placeholder="Pesquisar dados, dispositivos, projetos…" aria-label="Pesquisar"></label>
+  <div class="top-actions">
+    <select id="densitySelect" aria-label="Densidade">
+      <option value="compact">Compact</option>
+      <option value="comfortable" selected>Comfortable</option>
+      <option value="spacious">Spacious</option>
+    </select>
+    <button id="shellToggle" class="ghost-btn">Modo App</button>
+    <div class="user-chip"><span class="avatar">AS</span><div><strong>Alex Santos</strong><small>Teste</small></div></div>
+  </div>
+</header>
+
+<main class="content">
+<section class="page active" data-page="overview">
+  <div class="page-heading">
+    <div><span class="eyebrow">LABORATÓRIO RESPONSIVO</span><h1>Centro operacional</h1><p>Uma página de teste para validar o ModernUX-UI em diferentes ecrãs.</p></div>
+    <div class="heading-actions"><button class="secondary-btn">1–30 out 2026</button><button class="primary-btn">+ Novo registo</button></div>
+  </div>
+  <div id="kpiGrid" class="kpi-grid"></div>
+  <div class="dashboard-grid">
+    <article class="panel panel-wide">
+      <div class="panel-header"><div><span class="signal-rail"></span><h2>Atividade operacional</h2></div><select><option>Últimos 30 dias</option></select></div>
+      <div id="activityChart" class="chart-host"></div>
+    </article>
+    <article class="panel"><div class="panel-header"><h2>Estado dos serviços</h2></div><div id="donutChart" class="donut-wrap"></div></article>
+    <article class="panel table-panel span-2">
+      <div class="panel-header"><div><span class="signal-rail"></span><h2>Projetos e serviços</h2></div><button class="text-btn" data-page="tables">Ver todos →</button></div>
+      <div id="overviewTable"></div>
+    </article>
+    <article class="panel inspector">
+      <div class="inspector-title"><div class="app-logo">A</div><div><h2>App MARSI</h2><p>Aplicação móvel</p></div></div>
+      <div class="tabs"><button class="active">Resumo</button><button>Dispositivos</button><button>Equipa</button></div>
+      <p class="muted">Aplicação fictícia para testar cards, tabs, texto corrido e métricas.</p>
+      <dl class="detail-list">
+        <div><dt>Estado</dt><dd><span class="status ok">Operacional</span></dd></div>
+        <div><dt>Disponibilidade</dt><dd>99,4%</dd></div>
+        <div><dt>Dispositivos</dt><dd>120</dd></div>
+        <div><dt>Utilizadores</dt><dd>1 842</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="page" data-page="tables">
+  <div class="page-heading"><div><span class="eyebrow">TABELAS</span><h1>Dados operacionais</h1><p>Teste de legibilidade, espaçamento e densidade.</p></div></div>
+  <article class="panel">
+    <div class="toolbar"><input id="tableSearch" placeholder="Filtrar por nome, categoria ou responsável…"><button class="secondary-btn">Filtros</button><button class="primary-btn">Exportar</button></div>
+    <div id="fullTable"></div>
+  </article>
+</section>
+
+<section class="page" data-page="charts">
+  <div class="page-heading"><div><span class="eyebrow">GRÁFICOS</span><h1>Análise e indicadores</h1><p>Azul como base; verdes, laranjas e coral suaves apenas nos dados.</p></div></div>
+  <div class="analytics-grid">
+    <article class="panel span-2"><div class="panel-header"><h2>Desempenho mensal</h2></div><div id="lineChart" class="chart-host"></div></article>
+    <article class="panel"><div class="panel-header"><h2>Distribuição</h2></div><div id="barsChart" class="chart-host"></div></article>
+    <article class="panel"><div class="panel-header"><h2>Qualidade global</h2></div><div id="heatmap"></div></article>
+    <article class="panel span-2"><div class="panel-header"><h2>Tendência de incidentes</h2></div><div id="trendChart" class="chart-host"></div></article>
+  </div>
+</section>
+
+<section class="page" data-page="workflow">
+  <div class="page-heading"><div><span class="eyebrow">PROCESSOS</span><h1>Validação de dados</h1><p>Teste de fluxo, estados, erros e confirmação.</p></div></div>
+  <div class="workflow-layout">
+    <article class="panel">
+      <div class="steps"><button class="step active"><span>1</span>Identificação</button><button class="step"><span>2</span>Dados</button><button class="step"><span>3</span>Validação</button><button class="step"><span>4</span>Concluir</button></div>
+      <form id="validationForm" class="form-grid" novalidate>
+        <label>Nome do registo<input name="name" value="Sensor Piso 2" required></label>
+        <label>Identificador<input name="id" value="SNS-2048" required pattern="[A-Z]{3}-[0-9]{4}"><small>Formato: ABC-1234</small></label>
+        <label>Categoria<select name="category"><option>Sensor</option><option>Projeto</option><option>Serviço</option></select></label>
+        <label>Valor de referência<input name="value" type="number" value="22.4" min="0" max="100"></label>
+        <label class="span-2">Descrição<textarea name="description">Registo de teste para validação do fluxo.</textarea></label>
+        <div id="formMessage" class="form-message span-2"></div>
+        <div class="form-actions span-2"><button type="button" class="secondary-btn">Guardar rascunho</button><button type="submit" class="primary-btn">Validar dados</button></div>
+      </form>
+    </article>
+    <article class="panel"><div class="panel-header"><h2>Regras de validação</h2></div><ul class="check-list"><li>Identificador obrigatório</li><li>Formato ABC-1234</li><li>Valor entre 0 e 100</li><li>Descrição opcional</li></ul></article>
+  </div>
+</section>
+
+<section class="page" data-page="settings">
+  <div class="page-heading"><div><span class="eyebrow">CONFIGURAÇÃO</span><h1>Preferências da aplicação</h1><p>Teste de formulários, toggles, selects e opções.</p></div></div>
+  <div class="settings-grid">
+    <article class="panel"><h2>Aparência</h2>
+      <div class="setting-row"><div><strong>Tema automático</strong><small>Segue o sistema operativo</small></div><label class="switch"><input type="checkbox" checked><span></span></label></div>
+      <div class="setting-row"><div><strong>Reduzir animações</strong><small>Desativa transições não essenciais</small></div><label class="switch"><input type="checkbox"><span></span></label></div>
+      <div class="setting-row"><div><strong>Densidade</strong><small>Espaçamento de controlos e tabelas</small></div><select><option>Compact</option><option selected>Comfortable</option><option>Spacious</option></select></div>
+    </article>
+    <article class="panel"><h2>Integrações</h2>
+      <div class="setting-row"><div><strong>API de demonstração</strong><small>Ligação fictícia</small></div><span class="status ok">Ligada</span></div>
+      <div class="setting-row"><div><strong>Sincronização local</strong><small>Última há 12 min</small></div><button class="secondary-btn">Sincronizar</button></div>
+    </article>
+  </div>
+</section>
+</main>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
