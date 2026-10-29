@@ -36,3 +36,8 @@ Servir a pasta por HTTP, por exemplo com Python:
     python -m http.server 8080
 
 Abrir http://localhost:8080
+
+
+## IoT Lab
+
+Abrir `iot.html` para testar OLED 128×64, e-paper, TFT 320×240 e touch 480×320, com telemetria e controlos simulados.
