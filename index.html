@@ -11,10 +11,9 @@
 <body data-theme="light" data-density="comfortable" data-shell="web">
 <div class="app-shell">
 <aside class="rail" aria-label="Navegação principal">
-  <div class="brand-mark">M</div>
   <div class="orb-wrap">
-    <button id="menuOrb" class="menu-orb" aria-expanded="false" aria-label="Abrir menu">☰</button>
-    <nav id="fanMenu" class="fan-menu" aria-label="Menu rápido">
+    <button id="menuOrb" class="menu-orb" aria-controls="fanMenu" aria-expanded="false" aria-label="Abrir menu, página atual: Visão geral">⌂</button>
+    <nav id="fanMenu" class="fan-menu" aria-label="Menu rápido" inert>
       <button data-page="overview" aria-label="Visão geral">⌂</button>
       <button data-page="tables" aria-label="Tabelas">▤</button>
       <button data-page="charts" aria-label="Gráficos">▥</button>
@@ -22,13 +21,6 @@
       <button data-page="settings" aria-label="Configuração">⚙</button>
     </nav>
   </div>
-  <nav class="rail-icons" aria-label="Atalhos">
-    <button data-page="overview" title="Visão geral">⌂</button>
-    <button data-page="tables" title="Tabelas">▤</button>
-    <button data-page="charts" title="Gráficos">▥</button>
-    <button data-page="workflow" title="Processos">✓</button>
-    <button data-page="settings" title="Configuração">⚙</button>
-  </nav>
   <div class="rail-bottom"><a href="iot.html" title="IoT Lab" style="display:grid;place-items:center;width:40px;height:40px;border-radius:12px;text-decoration:none;color:inherit">IoT</a><button id="themeToggle" title="Alternar tema">◐</button></div>
 </aside>
 

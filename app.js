@@ -1,8 +1,14 @@
 const DATA=window.MODERN_UX_DATA;const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-function page(name){$$(".page").forEach(p=>p.classList.toggle("active",p.dataset.page===name));$$("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));window.scrollTo({top:0,behavior:"smooth"})}
-$$("[data-page]").forEach(b=>b.addEventListener("click",()=>{page(b.dataset.page);closeFan()}));
-const orb=$("#menuOrb"),wrap=$(".orb-wrap");function closeFan(){wrap.classList.remove("open");orb.setAttribute("aria-expanded","false");orb.textContent="☰"}
-orb.addEventListener("click",()=>{const on=wrap.classList.toggle("open");orb.setAttribute("aria-expanded",String(on));orb.textContent=on?"×":"☰"});
+const orb=$("#menuOrb"),wrap=$(".orb-wrap"),fan=$("#fanMenu"),options=$$("button[data-page]",fan);
+let currentPage="overview";
+function syncMenu(){const open=wrap.classList.contains("open"),current=options.find(b=>b.dataset.page===currentPage);orb.setAttribute("aria-expanded",String(open));orb.setAttribute("aria-label",open?"Fechar menu":"Abrir menu, página atual: "+current.getAttribute("aria-label"));orb.textContent=open?"×":current.textContent;fan.inert=!open;options.forEach(b=>{if(b===current)b.setAttribute("aria-current","page");else b.removeAttribute("aria-current")})}
+function closeFan(){wrap.classList.remove("open");syncMenu()}
+function page(name){currentPage=name;$$(".page").forEach(p=>p.classList.toggle("active",p.dataset.page===name));$$("button[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));window.scrollTo({top:0,behavior:"smooth"});closeFan()}
+$$("button[data-page]").forEach(b=>b.addEventListener("click",()=>page(b.dataset.page)));
+orb.addEventListener("click",()=>{wrap.classList.toggle("open");syncMenu()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&wrap.classList.contains("open")){closeFan();orb.focus()}});
+document.addEventListener("click",e=>{if(wrap.classList.contains("open")&&!wrap.contains(e.target))closeFan()});
+syncMenu();
 $("#themeToggle").addEventListener("click",()=>document.body.dataset.theme=document.body.dataset.theme==="dark"?"light":"dark");
 $("#densitySelect").addEventListener("change",e=>document.body.dataset.density=e.target.value);
 $("#shellToggle").addEventListener("click",e=>{document.body.dataset.shell=document.body.dataset.shell==="app"?"web":"app";e.target.textContent=document.body.dataset.shell==="app"?"Modo Web":"Modo App"});

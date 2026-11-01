@@ -10,17 +10,17 @@ body[data-density="spacious"]{--gap:24px;--row:68px;--pad:24px}
 button,input,select,textarea{font:inherit}button{cursor:pointer}
 .app-shell{min-height:100vh;padding-left:var(--rail);padding-top:var(--top)}
 .rail{position:fixed;z-index:60;left:0;top:0;bottom:0;width:var(--rail);background:color-mix(in srgb,var(--surface) 92%,transparent);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:16px;padding:12px 6px}
-.brand-mark,.app-logo{display:grid;place-items:center;background:linear-gradient(145deg,#0c62d6,#4abed0);color:#fff;font-weight:800;border-radius:14px}
-.brand-mark{width:36px;height:36px}.app-logo{width:42px;height:42px}
-.orb-wrap{position:relative;margin-top:6px}.menu-orb{width:50px;height:50px;border:0;border-radius:50%;background:#0e5bb7;color:#fff;font-size:21px;box-shadow:0 0 0 11px color-mix(in srgb,var(--blue) 10%,transparent),0 12px 24px rgba(10,87,176,.18);position:relative;z-index:4}
+.app-logo{display:grid;place-items:center;background:linear-gradient(145deg,#0c62d6,#4abed0);color:#fff;font-weight:800;border-radius:14px}
+.app-logo{width:42px;height:42px}
+.orb-wrap{position:relative;margin-top:68px}.menu-orb{width:50px;height:50px;border:0;border-radius:50%;background:#0e5bb7;color:#fff;font-size:21px;box-shadow:0 0 0 11px color-mix(in srgb,var(--blue) 10%,transparent),0 12px 24px rgba(10,87,176,.18);position:relative;z-index:4}
 .fan-menu{position:absolute;left:25px;top:25px;width:1px;height:1px;pointer-events:none}
 .fan-menu button{position:absolute;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--text);box-shadow:var(--shadow);opacity:0;transform:translate(-20px,-20px) scale(.7);transition:.22s ease}
 .orb-wrap.open .fan-menu{pointer-events:auto}.orb-wrap.open .fan-menu button{opacity:1}
 .orb-wrap.open .fan-menu button:nth-child(1){transform:translate(8px,-86px)}.orb-wrap.open .fan-menu button:nth-child(2){transform:translate(48px,-68px)}
 .orb-wrap.open .fan-menu button:nth-child(3){transform:translate(70px,-28px)}.orb-wrap.open .fan-menu button:nth-child(4){transform:translate(64px,16px)}
 .orb-wrap.open .fan-menu button:nth-child(5){transform:translate(32px,50px)}
-.rail-icons,.rail-bottom{display:flex;flex-direction:column;gap:6px}.rail-icons button,.rail-bottom button{width:40px;height:40px;border:0;border-radius:12px;background:transparent;color:var(--text2);font-size:17px}
-.rail-icons button:hover,.rail-icons button.active,.rail-bottom button:hover{background:var(--surface2);color:var(--blue)}.rail-bottom{margin-top:auto}
+.rail-bottom{display:flex;flex-direction:column;gap:6px}.rail-bottom button{width:40px;height:40px;border:0;border-radius:12px;background:transparent;color:var(--text2);font-size:17px}
+.fan-menu button:hover,.fan-menu button.active,.rail-bottom button:hover{background:var(--surface2);color:var(--blue)}.rail-bottom{margin-top:auto}
 .topbar{position:fixed;z-index:50;left:var(--rail);right:0;top:0;height:var(--top);display:grid;grid-template-columns:minmax(220px,1fr) minmax(260px,520px) minmax(260px,1fr);align-items:center;gap:18px;padding:0 22px;background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
 .app-identity,.user-chip{display:flex;align-items:center;gap:10px}.app-identity strong,.app-identity small,.user-chip strong,.user-chip small{display:block}.app-identity small,.user-chip small{color:var(--text2)}
 .searchbox{height:40px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:flex;align-items:center;gap:8px;padding:0 14px}.searchbox input{border:0;outline:0;background:transparent;width:100%;color:var(--text)}
@@ -45,5 +45,8 @@ button,input,select,textarea{font:inherit}button{cursor:pointer}
 body[data-shell="app"] .topbar{grid-template-columns:1fr minmax(240px,500px) auto}body[data-shell="app"] .content{max-width:none}
 @media (min-width:2200px){:root{--rail:76px;--top:70px}.content{max-width:2400px}.kpi{min-height:160px}.chart-host,.chart-host svg{min-height:340px}}
 @media (max-width:1280px){.kpi-grid{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.analytics-grid{grid-template-columns:1fr 1fr}.inspector{grid-row:auto}.panel-wide,.span-2{grid-column:span 2}.topbar{grid-template-columns:1fr minmax(240px,420px) auto}.user-chip>div{display:none}}
-@media (max-width:900px){:root{--rail:56px;--top:58px}.topbar{left:0;padding-left:68px;grid-template-columns:1fr auto}.app-identity{display:none}.searchbox{grid-column:1}.top-actions select,.user-chip{display:none}.content{padding:16px 12px 28px}.app-shell{padding-left:0}.rail{width:56px;top:58px;border-radius:0 18px 18px 0;height:calc(100vh - 58px)}.brand-mark{display:none}.menu-orb{width:46px;height:46px}.rail-icons button{width:40px;height:40px}.page-heading{flex-direction:column}.heading-actions{width:100%}.heading-actions>*{flex:1}.kpi-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid,.analytics-grid,.workflow-layout,.settings-grid{grid-template-columns:1fr}.panel-wide,.span-2{grid-column:auto}.inspector{order:3}}
+@media (max-width:900px){:root{--rail:56px;--top:58px}.topbar{left:0;padding-left:68px;grid-template-columns:1fr auto}.app-identity{display:none}.searchbox{grid-column:1}.top-actions select,.user-chip{display:none}.content{padding:16px 12px 28px}.app-shell{padding-left:0}.rail{width:56px;top:58px;border-radius:0 18px 18px 0;height:calc(100vh - 58px)}.menu-orb{width:46px;height:46px}.page-heading{flex-direction:column}.heading-actions{width:100%}.heading-actions>*{flex:1}.kpi-grid{grid-template-columns:repeat(2,1fr)}.dashboard-grid,.analytics-grid,.workflow-layout,.settings-grid{grid-template-columns:1fr}.panel-wide,.span-2{grid-column:auto}.inspector{order:3}}
 @media (max-width:600px){.topbar{padding-right:10px}.searchbox{display:none}.top-actions{grid-column:2}.ghost-btn{font-size:12px;padding:0 9px}.content{padding-left:66px}.kpi-grid{grid-template-columns:1fr}.kpi{min-height:118px}.page-heading h1{font-size:28px}.form-grid{grid-template-columns:1fr}.span-2{grid-column:auto}.toolbar{flex-wrap:wrap}.toolbar input{flex-basis:100%}.data-table{min-width:760px}.chart-host,.chart-host svg{min-height:230px}.donut-wrap{min-height:220px}}
+
+.menu-orb:focus-visible,.fan-menu button:focus-visible{outline:3px solid var(--blue2);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.fan-menu button{transition:none}}
