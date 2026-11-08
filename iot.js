@@ -28,3 +28,12 @@ function telemetry(){
  $("#telemetryGrid").innerHTML=data.map(x=>'<div class="metric"><span>'+x[0]+'</span><strong>'+x[1]+'</strong></div>').join("")
 }
 $("#randomizeBtn").addEventListener("click",telemetry);telemetry();
+$("#orbitPower").addEventListener("click",event=>{
+  const on=event.currentTarget.getAttribute("aria-checked")!=="true";
+  event.currentTarget.setAttribute("aria-checked",String(on));
+  $("#orbitPowerState").textContent=on?"Ligado":"Desligado";
+});
+$("#orbitRefresh").addEventListener("click",()=>{
+  $("#randomizeBtn").click();
+  $("#orbitRefreshStatus").textContent="Telemetria atualizada às "+new Date().toLocaleTimeString("pt-PT");
+});

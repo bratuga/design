@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ModernUX IoT Lab</title>
 <link rel="stylesheet" href="iot.css">
+<link rel="stylesheet" href="orbit-actions.css">
 </head>
 <body>
 <header class="iot-topbar">
@@ -111,6 +112,16 @@
     <div class="toggle-row"><span>KNX</span><label class="switch"><input id="knxToggle" type="checkbox" checked><span></span></label></div>
     <div class="toggle-row"><span>Alarme</span><label class="switch"><input id="alarmToggle" type="checkbox"><span></span></label></div>
   </aside>
+</section>
+
+<section class="card" aria-labelledby="orbit-controls-heading">
+  <h2 id="orbit-controls-heading">Controlos Orbit</h2>
+  <p>Interruptor com estado visível e ação independente de atualização. Demonstração local.</p>
+  <div class="orbit-actions">
+    <button class="orbit-action orbit-switch" type="button" id="orbitPower" role="switch" aria-checked="false" aria-label="Controlo"><span class="orbit-switch-track" aria-hidden="true"></span><span id="orbitPowerState">Desligado</span></button>
+    <button class="orbit-action" type="button" id="orbitRefresh"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 6M20 5v6h-6"/></svg>Atualizar</button>
+  </div>
+  <p id="orbitRefreshStatus" role="status"></p>
 </section>
 
 <section class="comparison">

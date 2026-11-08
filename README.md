@@ -41,3 +41,12 @@ Abrir http://localhost:8080
 ## IoT Lab
 
 Abrir `iot.html` para testar OLED 128×64, e-paper, TFT 320×240 e touch 480×320, com telemetria e controlos simulados.
+
+## Controlos Orbit reutilizáveis
+
+`orbit-actions.css` contém o interruptor com estado visível e o botão Atualizar
+com ícone SVG. Há uma demonstração em `iot.html`. O interruptor usa um botão
+com `role="switch"` e `aria-checked`, atualizado após a confirmação do
+equipamento em aplicações reais. O botão Atualizar executa a leitura pedida
+sem alterar o estado do interruptor. Cada projeto pode ajustar as cores pelos
+tokens de tema.
