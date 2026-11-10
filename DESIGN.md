@@ -13,7 +13,7 @@ Referência: `bratuga/iot-vmc-controler`, main `754e3b0`, observado em 10-11-202
 
 `orbit-controls.css` e `orbit-controls.js` são a referência reutilizável para tema e botão circular. `orbit-actions.css` mantém o interruptor operacional e o botão de atualização com SVG. Não existem dependências externas.
 
-Tokens: `--orbit-bg`, `--orbit-panel`, `--orbit-raised`, `--orbit-line`, `--orbit-ink`, `--orbit-muted`, `--orbit-accent`, `--orange`, `--red`. Usar superfícies discretas, bordas finas, cartões de 16–18 px e campos de 9–12 px de raio. A cor de destaque pertence ao projeto: verde na referência VMC/sensores; azul no LusoSol atual.
+Tokens: `--orbit-bg`, `--orbit-panel`, `--orbit-raised`, `--orbit-line`, `--orbit-ink`, `--orbit-muted`, `--orbit-accent`, `--orange`, `--red`. Usar superfícies discretas, bordas finas, cartões de 16–18 px e campos de 9–12 px de raio. Verde como destaque comum na VMC, sensores e LusoSol. O LusoSol acompanha a paleta dos sensores: `#61d5b0` no tema escuro e `#18755f` no claro; laranja/vermelho continuam reservados a avisos/falhas.
 
 ### Tema
 
