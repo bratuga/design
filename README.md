@@ -50,3 +50,10 @@ com `role="switch"` e `aria-checked`, atualizado após a confirmação do
 equipamento em aplicações reais. O botão Atualizar executa a leitura pedida
 sem alterar o estado do interruptor. Cada projeto pode ajustar as cores pelos
 tokens de tema.
+
+
+## Orbit · padrão IoT atual
+
+Abrir [orbit.html](orbit.html) para testar o botão circular da VMC, pressão de 1,5 s, métricas, estados de falha, tema lua/sol, navegação e configuração responsiva. Todos os dados e comandos desta página são simulados. [DESIGN.md](DESIGN.md) documenta a referência e os contratos de integração.
+
+Os componentes reutilizáveis estão em `orbit-controls.css` e `orbit-controls.js`. O menu radial original do Testbench continua disponível como experiência separada.
