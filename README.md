@@ -57,3 +57,11 @@ tokens de tema.
 Abrir [orbit.html](orbit.html) para testar o botão circular da VMC, pressão de 1,5 s, métricas, estados de falha, tema lua/sol, navegação e configuração responsiva. Todos os dados e comandos desta página são simulados. [DESIGN.md](DESIGN.md) documenta a referência e os contratos de integração.
 
 Os componentes reutilizáveis estão em `orbit-controls.css` e `orbit-controls.js`. O menu radial original do Testbench continua disponível como experiência separada.
+
+## Proposta em revisão · 12-11-2026
+
+[Orbit / 02 — mockup interativo](docs/proposals/orbit-20261112/index.html) e
+[revisão com evidências](docs/proposals/orbit-20261112/REVIEW.md).
+Estudo baseado na biblioteca Awesome DESIGN.md, com temas claro/escuro e perfis
+dos equipamentos. Aguarda aprovação; não substitui a referência atual nem
+controla equipamentos.
