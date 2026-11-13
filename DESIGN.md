@@ -1,47 +1,56 @@
-# Orbit — padrão IoT
+# Orbit — especificação 2026.11
 
-Referência: `bratuga/iot-vmc-controler`, main `754e3b0`, observado em 10-11-2026. [Demonstração](orbit.html). O laboratório usa dados simulados e não controla equipamentos.
+Interface legível e coerente, com navegação simples, comando circular e estados explícitos. A funcionalidade prevalece sobre a uniformidade visual.
 
-## Estrutura
+## Estrutura e escala
 
-- Barra lateral de 142–148 px no computador; navegação inferior com colunas flexíveis abaixo de 760 px. Sem a linha decorativa curva. Cabeçalho curto, nome do dispositivo e rodapé discreto com versão/data.
-- Painel, sensores, gráficos/histórico e comandos separados da configuração administrativa. O acesso real depende do firmware; esta demonstração não implementa autenticação.
-- Configuração: Técnico, Diagnóstico, Hardware, KNX e Configurações. Formulários em duas colunas, empilhados no telemóvel. Agrupar por função; não repetir navegação.
-- Preservar a composição dos cartões operacionais, coletores e termóstatos. A identidade de cada firmware mantém-se nas suas cores. Ilustrações da VMC, bypass e filtros são específicas desse equipamento, não capacidades a atribuir aos outros.
+- Computador: barra lateral, comando circular quando suportado e tema. Sem curva decorativa.
+- Até 760 px: no máximo quatro destinos na barra inferior; comando circular de pelo menos 76 px e tema no topo. Respeitar a área segura do ecrã.
+- Destinos comuns: Painel, Sensores, Histórico e Configuração, apenas quando forem vistas distintas. Ajuda e estado público continuam acessíveis fora da administração.
+- Administração: Técnico, Diagnóstico, Hardware, KNX e Configurações; omitir capacidades inexistentes e conservar opções particulares.
+- Cabeçalho curto e versão/data discretas no rodapé. Preservar a composição dos cartões VMC, aquecimento, termóstatos e energia.
+- Fonte do sistema; corpo 14 px, secções 16 px, título 26–28 px. Espaçamento 4/8/12/16/24/32 px; raios 8 px em controlos e 12 px em painéis. Alvos de toque de pelo menos 44 px.
+- Conter deslocação horizontal em tabelas/gráficos/separadores, sem transbordo da página inteira.
 
-## Tokens e componentes
+## Tokens
 
-`orbit-controls.css` e `orbit-controls.js` são a referência reutilizável para tema e botão circular. `orbit-actions.css` mantém o interruptor operacional e o botão de atualização com SVG. Não existem dependências externas.
+| Token | Escuro | Claro |
+|---|---|---|
+| `--orbit-bg` | `#0b1119` | `#f1f5f3` |
+| `--orbit-panel` | `#111b27` | `#ffffff` |
+| `--orbit-raised` | `#182532` | `#eaf1ed` |
+| `--orbit-line` | `#293a49` | `#cedbd4` |
+| `--orbit-ink` | `#e9f0f7` | `#192f28` |
+| `--orbit-muted` | `#a1b2c2` | `#536b60` |
+| `--orbit-accent` | `#61d5b0` | `#18755f` |
 
-Tokens: `--orbit-bg`, `--orbit-panel`, `--orbit-raised`, `--orbit-line`, `--orbit-ink`, `--orbit-muted`, `--orbit-accent`, `--orange`, `--red`. Usar superfícies discretas, bordas finas, cartões de 16–18 px e campos de 9–12 px de raio. Verde como destaque comum na VMC, sensores e LusoSol. O LusoSol acompanha a paleta dos sensores: `#61d5b0` no tema escuro e `#18755f` no claro; laranja/vermelho continuam reservados a avisos/falhas.
+Âmbar indica aviso; vermelho indica falha. Cores de sensores/circuitos conservam o significado original. Texto acompanha a cor. Componentes herdam tokens; não substituir cores localmente por valores fixos de outro tema.
 
-### Tema
+## Tema e acessibilidade
 
-Botão com lua/sol, `role="switch"`, `aria-checked` e foco visível. O tema claro é o estado checked. A preferência fica no armazenamento local do navegador por projeto e é partilhada entre painel e configuração da mesma origem. Sem armazenamento disponível, o botão continua funcional. Não envia comandos ao equipamento.
+`initOrbitTheme(key)` liga `#orbitTheme`, com `role="switch"`, nome «Tema claro» e `aria-checked`. Tema claro corresponde a `body.light`. A chave é partilhada entre páginas da mesma aplicação. Falha de armazenamento não impede mudar de tema.
 
-### Botão circular
+Foco visível, navegação por teclado, `aria-current` na página atual e Escape nos diálogos. Diálogos devolvem foco à origem. Respeitar movimento reduzido. Mensagens de recusa e confirmação permanecem visíveis no telemóvel.
 
-- Pressionar durante 1,5 s, por ponteiro ou Espaço/Enter. Clique curto não envia comandos. Soltar, arrastar para fora, perder foco, ocultar a página ou Escape cancelam.
-- Anel com progresso durante a pressão e pedido pendente. Um pedido em curso não pode ser repetido. Não assumir sucesso pela aparência do botão.
-- Normal: anel em movimento lento, CPU e memória. Desligado: símbolo de alimentação e anel neutro. Aviso: âmbar e texto; falha: vermelho e texto; sem ligação: — e comando indisponível.
-- Respeitar `prefers-reduced-motion`. Os estados têm nomes acessíveis; não dependem apenas da cor. No telemóvel, preservar o botão e o tema na navegação inferior.
-- `createOrbitPower(sendPower)` recebe estados por `update(state,busy)`. Campos: `powerEnabled`, `level`, `label`, `canToggle`, `cpuUsePct`, `cpuMHz`, `heapUsePct`. Um estado desconhecido deve ser `null`, nunca um falso OFF.
-- `sendPower` pede a alteração e lê novamente o estado. Resolver `true` significa pedido aceite; só uma leitura confirmada muda o estado. Falhas mantêm o último estado confirmado e apresentam aviso.
-- A ação pertence ao firmware. Para LusoSol e sensores, o proprietário pediu parar **todas as saídas**, incluindo relés independentes, e recuperar o estado anterior ao ligar. Rede e leitura de sensores continuam. Não contornar proteções, sequências de paragem nem feedback KNX. OFF deve persistir após reinício/falha de energia até novo comando Ligar. A interface distingue paragem pedida, confirmação pendente e saídas confirmadas OFF; não confundir o bloqueio geral com alimentação física do ESP.
+## Comando circular
 
-### Métricas
+- Apenas onde exista uma ação geral real. No Moxa, monitorização não equivale a desligar o Linux.
+- Pressão de 1,5 s por ponteiro ou Espaço/Enter; clique curto não comanda. Soltar antes, sair da área, perder foco, ocultar a página ou Escape cancelam.
+- Pedido aceite não confirma as saídas. Mostrar espera, confirmação e falha; conservar o último estado conhecido se falhar. Estado desconhecido é `null`, nunca um falso OFF.
+- `createOrbitPower(sendPower).update(state,busy)` recebe `powerEnabled`, `level`, `label`, `canToggle`, `cpuUsePct`, `cpuMHz`, `heapUsePct` e `showCpu`.
+- `showCpu:false` omite CPU também do nome acessível; perfil LusoSol. MHz não é percentagem de utilização. Explicar qual a memória efetivamente medida.
+- Proteções, sequência de relés, persistência de OFF e significado de Ligar/Desligar pertencem ao firmware, não à animação.
 
-CPU significa percentagem de utilização apenas quando os contadores reais estão disponíveis. Nos perfis Arduino ESP32 2.0.17 atuais, os contadores FreeRTOS não estão ativados: mostrar frequência em **MHz**, com indicação acessível de que a utilização está indisponível. Não inferir percentagens pela frequência ou inventar zero. Memória é a percentagem usada do heap interno de 8 bits, não toda a RAM física. Leitura desconhecida: —.
+## Dados e formulários
 
-## Padrões observados na VMC
+Valores ausentes aparecem como —; dados antigos mantêm idade/estado explícitos. Diferenciar estado pretendido, comunicado e confirmado. Histórico, período e tabela usam os mesmos dados; não desenhar linhas através de amostras inválidas.
 
-- Interruptor com estado confirmado e ação Atualizar separada; comando aceite não equivale a feedback físico.
-- Temperaturas com uma casa decimal e unidade; percentagens e potência com unidade junto ao valor. Fonte/idade/indisponibilidade acompanham leituras quando relevantes.
-- Histórico com seleção 24 h/7 dias; não ligar séries através de dados inválidos. Exportação e ferramentas específicas só onde suportadas.
-- Painel NTP: servidor principal, alternativo, fuso e três estados resumidos. Sincronização apresenta pendente, confirmação ou falha; relógio previamente válido não comprova nova resposta NTP. Não sincronizar um rascunho por guardar.
-- Rede, backup/restauro e atualização no Técnico; logs e versão em Diagnóstico; hardware/pinos no Hardware; teste da ligação e telegramas no KNX. Evitar títulos explicativos longos.
-- Capacidades reais: não apresentar RTC, microSD, KNX, filtros, bypass ou funções de meteorologia como disponíveis por copiar o desenho.
+Rótulos persistentes, ajuda curta e validação junto dos campos. Distinguir Guardar, Aplicar e reiniciar e Sincronizar; conservar a semântica do produto. Preservar rascunhos entre secções e avisar antes de os perder.
 
-## Validação
+NTP: servidor principal, alternativo, fuso e estados reais. Sincronização usa configuração guardada; relógio previamente válido não confirma nova resposta. Atualização: equipamento, versão atual e ficheiro proposto; a validação de compatibilidade tem de ocorrer no dispositivo.
 
-Testar tema e persistência, teclado, pressão curta/longa/cancelada, pedido único, recusa e estado sem ligação. Rever pelo menos computador e 360–390 px, os dois temas, navegação, formulários e ausência de sobreposição. A demonstração não constitui ensaio elétrico ou de atuação física.
+## Limites
+
+O Design não fornece autenticação, autorização, KNX, validação de firmware nem drivers. Trocar CSS não deve mudar estas políticas. Na casa, o padrão de acesso distingue consulta/comandos locais de administração protegida; divergências do firmware exigem resolução e validação explícitas.
+
+Displays seguem [regras próprias](docs/DISPLAYS.md). Não mudar pinos, barramentos, modos, atalhos ou proteções para obter o aspeto do exemplo.

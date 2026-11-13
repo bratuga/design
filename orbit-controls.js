@@ -33,14 +33,14 @@ function createOrbitPower(sendPower){
   vmcEl('railPowerMetrics').hidden=!metrics;
   const cpu=Number.isFinite(deviceState?.cpuUsePct)?deviceState.cpuUsePct+'%':Number.isFinite(deviceState?.cpuMHz)?deviceState.cpuMHz+' MHz':'—';
   const heap=Number.isFinite(deviceState?.heapUsePct)?deviceState.heapUsePct+'%':'—';
-  vmcText('railCpu',cpu);vmcText('railHeap',heap);
+  vmcText('railCpu',cpu);vmcText('railHeap',heap);vmcEl('railCpu').parentElement.hidden=deviceState?.showCpu===false;
   const centre=vmcEl('railPowerCentre');
   const powerSymbol=working||state==='off';
   centre.hidden=metrics;
   centre.toggleAttribute('data-symbol',powerSymbol);
   vmcText('railPowerCentre',powerSymbol?'⏻':state==='offline'?'—':label);
   const hint=state==='offline'?'':' · manter premido 1,5 s para '+(enabled?'desligar':'ligar');
-  const accessible=label+(metrics?' · CPU '+cpu+(Number.isFinite(deviceState?.cpuUsePct)?' de utilização':' de frequência; utilização indisponível')+' · memória utilizada '+heap:'')+hint;
+  const accessible=label+(metrics?(deviceState?.showCpu===false?'':' · CPU '+cpu+(Number.isFinite(deviceState?.cpuUsePct)?' de utilização':' de frequência; utilização indisponível'))+' · memória utilizada '+heap:'')+hint;
   railPower.setAttribute('aria-label',accessible);
   railPower.title=accessible;
  }

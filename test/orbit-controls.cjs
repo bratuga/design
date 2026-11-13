@@ -20,6 +20,7 @@ async function advance(ms){now+=ms;const fn=frame;frame=null;if(fn)await fn(now)
  power.update(state);key('keydown',' ');power.update({...state,canToggle:false});await advance(1600);assert.equal(commands.length,1);
  succeeds=false;power.update(state);key('keydown',' ');await advance(1500);assert.equal(commands.length,2);assert.equal(button.dataset.state,'off');assert.equal(d.getElementById('railPowerNotice').textContent,'Comando falhou');
  power.update({...state,powerEnabled:true,cpuUsePct:null,cpuMHz:240});assert.equal(d.getElementById('railCpu').textContent,'240 MHz');assert.match(button.getAttribute('aria-label'),/utilização indisponível/);
+ power.update({...state,powerEnabled:true,cpuUsePct:null,cpuMHz:240,showCpu:false});assert(d.getElementById('railCpu').parentElement.hidden);assert.doesNotMatch(button.getAttribute('aria-label'),/CPU|MHz/);assert.match(button.getAttribute('aria-label'),/memória utilizada/);
  power.update({...state,level:'warning',label:'A parar',canToggle:false});assert.equal(button.dataset.state,'warning');assert.match(button.getAttribute('aria-label'),/A parar/);
  w.initOrbitTheme('test-theme');d.getElementById('orbitTheme').click();assert(w.document.body.classList.contains('light'));assert.equal(w.localStorage.getItem('test-theme'),'light');
  console.log('PASS hold/cancel/keyboard/offline/busy/failure/metrics/theme');w.close();

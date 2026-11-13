@@ -1,5 +1,5 @@
 'use strict';
-// Proposal only. No device endpoints, credentials, or physical commands.
+// Interactive reference only. No device endpoints, credentials, or physical commands.
 const $ = id => document.getElementById(id);
 const profiles = {
   vmc: {name:'VMC',host:'vmc-casa',hardware:'M5Stack StamPLC',rtc:'RTC RX8130CE',rtcState:'Disponível',rtcDetail:'Relógio em UTC',config:'Ventilação',description:'Horários, velocidades e condições de funcionamento mantêm as regras atuais.',facts:[['Relógio','RX8130CE · UTC'],['Histórico','microSD'],['Saídas','Mapa atual preservado']],sensors:[['Ar novo','18,6','62','#91b6f5'],['Insuflação','22,4','48','#61d5b0'],['Extração','23,1','51','#f0b374'],['Rejeição','19,8','59','#d99baa']]},
@@ -23,10 +23,11 @@ const power=createOrbitPower(async target=>{
   notify(target?'Ligação confirmada · simulação.':'Saídas desligadas · confirmação simulada.');
   return true;
 });
-initOrbitTheme('orbit-review-20261112-theme');
+initOrbitTheme('orbit-reference-theme');
 function renderPower(){
   const offline=scenario==='offline';
   power.update({powerEnabled:offline?null:powerEnabled,level:scenario==='stale'?'warning':'ok',label:scenario==='stale'?'Dados antigos':'',cpuMHz:profile==='lusol'?null:240,heapUsePct:39,showCpu:profile!=='lusol',canToggle:!offline&&scenario!=='stale'&&!busy});
+  $('overviewPower').textContent=profile==='moxa'?'Não aplicável':offline?'Desconhecido':powerEnabled?'Ligado':'Saídas desligadas';
   $('powerLabel').textContent=offline?'Sem ligação':scenario==='stale'?'Dados antigos':powerEnabled?'Ligado':'Saídas desligadas';
   $('powerHint').textContent=offline||scenario==='stale'?'Comando indisponível':`Manter 1,5 s para ${powerEnabled?'desligar':'ligar'}`;
 }
@@ -85,6 +86,7 @@ $('profile').addEventListener('change',()=>{
 });
 function renderScenario(){
   scenario=$('scenario').value;const offline=scenario==='offline',stale=scenario==='stale';
+  $('overviewConnection').textContent=offline?'Sem ligação':stale?'Leituras antigas':'Ligação ativa';
   $('connectionText').textContent=offline?'Sem ligação':stale?'Leituras antigas':'Ligação ativa';
   document.querySelector('.connection').dataset.state=scenario;
   $('connectionNotice').hidden=!offline&&!stale;
@@ -132,7 +134,7 @@ document.querySelectorAll('[data-range]').forEach(button=>button.addEventListene
 function renderRoute(){
   $('notice').hidden=true;
   const [requestedView,requestedSection]=(location.hash.slice(1)||'configuracao/tecnico').split('/');
-  const view=['sensores','historico','configuracao'].includes(requestedView)&&!(profile==='moxa'&&requestedView==='historico')?requestedView:'configuracao';
+  const view=['painel','sensores','historico','configuracao'].includes(requestedView)&&!(profile==='moxa'&&requestedView==='historico')?requestedView:'configuracao';
   const sections=['tecnico','diagnostico','hardware','knx','equipamento'];
   const section=sections.includes(requestedSection)&&!(profile==='moxa'&&requestedSection==='knx')?requestedSection:'tecnico';
   if(location.hash!==`#${view}${view==='configuracao'?'/'+section:''}`)history.replaceState(null,'',`#${view}${view==='configuracao'?'/'+section:''}`);
@@ -141,18 +143,18 @@ function renderRoute(){
   document.querySelectorAll('[data-view]').forEach(a=>a.toggleAttribute('aria-current',false));
   document.querySelector(`[data-view="${view}"]`).setAttribute('aria-current','page');
   document.querySelectorAll('[data-section]').forEach(a=>{a.removeAttribute('aria-current');if(a.dataset.section===section)a.setAttribute('aria-current','page');});
-  $('pageTitle').textContent={sensores:'Sensores',historico:'Histórico',configuracao:'Configuração'}[view];
-  document.title=$('pageTitle').textContent+' · Orbit · Proposta';
+  $('pageTitle').textContent={painel:'Painel',sensores:'Sensores',historico:'Histórico',configuracao:'Configuração'}[view];
+  document.title=$('pageTitle').textContent+' · Orbit';
   if(view==='configuracao'&&dirty)notify('Existem alterações por guardar no separador Técnico.');
 }
 window.addEventListener('hashchange',()=>{renderRoute();window.scrollTo(0,0);$('main').focus({preventScroll:true});});
 document.querySelector('.skip').addEventListener('click',event=>{event.preventDefault();$('main').focus();$('main').scrollIntoView();});
 window.addEventListener('beforeunload',event=>{if(dirty){event.preventDefault();event.returnValue='';}});
 const details={
-  ajuda:['Ajuda','A ajuda mantém acesso público. Na integração, este acesso abre a documentação do próprio equipamento. Os cartões operacionais atuais não são redesenhados por esta proposta.'],
-  backup:['Backup e restauro','Proposta: apresentar a data e a versão do backup, validar o ficheiro e mostrar um resumo antes do restauro. Os formatos atuais e a confirmação existente ficam preservados.'],
-  firmware:['Atualização','Proposta: um resumo único com equipamento, versão instalada e versão do ficheiro antes de aplicar. A validação de compatibilidade deve continuar no dispositivo, mesmo quando a página já validou o ficheiro. Este mockup não instala firmware.'],
-  auditoria:['Auditoria','Proposta: uma lista com instante, utilizador, ação e resultado, incluindo espera e falha. Mostrar apenas os eventos que cada firmware realmente disponibiliza.']
+  ajuda:['Ajuda','A ajuda mantém acesso público. Na integração, este acesso abre a documentação do próprio equipamento. Os cartões operacionais atuais não são redesenhados por este padrão.'],
+  backup:['Backup e restauro','Padrão: apresentar a data e a versão do backup, validar o ficheiro e mostrar um resumo antes do restauro. Os formatos atuais e a confirmação existente ficam preservados.'],
+  firmware:['Atualização','Padrão: um resumo único com equipamento, versão instalada e versão do ficheiro antes de aplicar. A validação de compatibilidade deve continuar no dispositivo, mesmo quando a página já validou o ficheiro. Este exemplo não instala firmware.'],
+  auditoria:['Auditoria','Padrão: uma lista com instante, utilizador, ação e resultado, incluindo espera e falha. Mostrar apenas os eventos que cada firmware realmente disponibiliza.']
 };
 document.querySelectorAll('[data-detail]').forEach(button=>button.addEventListener('click',()=>{const [title,body]=details[button.dataset.detail];$('detailTitle').textContent=title;$('detailBody').textContent=body;$('detailDialog').showModal();}));
 $('closeDialog').addEventListener('click',()=>$('detailDialog').close());

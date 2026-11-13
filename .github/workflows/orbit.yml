@@ -15,8 +15,10 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check orbit-controls.js
-          node --check orbit-lab.js
+          node --check examples/web-demo.js
+          node --check examples/display-demo.js
       - name: Test hold, cancellation, state, and theme
         run: |
-          npm install --prefix "$RUNNER_TEMP/orbit-tests" --no-save --ignore-scripts jsdom@30.1.3
+          npm install --prefix "$RUNNER_TEMP/orbit-tests" --no-save --ignore-scripts jsdom@26.1.0
           NODE_PATH="$RUNNER_TEMP/orbit-tests/node_modules" node test/orbit-controls.cjs
+          NODE_PATH="$RUNNER_TEMP/orbit-tests/node_modules" node test/reference.cjs

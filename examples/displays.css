@@ -1,0 +1,136 @@
+.display-reference main {
+  max-width:1160px;
+  padding:36px 28px
+}
+.display-reference .study-bar .orbit-theme {
+  min-width:84px
+}
+.display-intro {
+  color:var(--orbit-muted);
+  max-width:740px;
+  margin:0 0 28px
+}
+.display-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px
+}
+.display-grid .surface {
+  margin:0
+}
+.display-grid .panel-heading {
+  justify-content:space-between;
+  flex-wrap:wrap
+}
+.display-grid canvas {
+  display:block;
+  max-width:100%;
+  height:auto;
+  margin:24px auto;
+  border:8px solid #050809;
+  border-radius:8px;
+  background:#000;
+  image-rendering:pixelated
+}
+.display-grid #oled {
+  width:256px
+}
+.display-grid #epaper {
+  width:444px
+}
+.display-grid #tft {
+  width:360px
+}
+.display-grid p {
+  color:var(--orbit-muted);
+  font-size:13px;
+  margin:16px 0 0
+}
+.display-grid .quiet {
+  font-size:11px
+}
+.display-buttons {
+  display:flex;
+  gap:12px;
+  justify-content:center
+}
+.display-buttons .button {
+  min-width:64px;
+  touch-action:none;
+  user-select:none
+}
+.display-buttons .holding {
+  border-color:var(--orbit-accent);
+  background:var(--soft-accent)
+}
+.touch-preview {
+  display:grid;
+  gap:18px;
+  margin:24px auto;
+  padding:24px;
+  border:8px solid #050809;
+  border-radius:10px;
+  background:var(--orbit-bg);
+  max-width:440px
+}
+.touch-preview>strong {
+  font-size:40px;
+  font-weight:500
+}
+.touch-preview strong small {
+  font-size:18px;
+  color:var(--orbit-muted)
+}
+.touch-preview label {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  font-size:13px
+}
+.touch-preview input {
+  width:100%;
+  min-height:44px;
+  accent-color:var(--orbit-accent);
+  padding:0
+}
+.touch-state {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  font-size:12px;
+  color:var(--orbit-muted)
+}
+.display-reference footer {
+  margin-bottom:0
+}
+.display-grid #paperRefresh {
+  margin-top:16px
+}
+@media(max-width:760px) {
+  .display-reference main {
+    padding:24px 16px
+  }
+  .display-grid {
+    grid-template-columns:1fr;
+    gap:16px
+  }
+  .display-reference .study-bar>span {
+    width:100%
+  }
+  .display-reference .study-bar>a {
+    margin-left:0
+  }
+  .display-reference .study-bar .orbit-theme {
+    margin-left:auto
+  }
+  .display-grid .panel-heading>.quiet {
+    font-size:10px
+  }
+  .display-grid canvas {
+    border-width:6px
+  }
+  .touch-preview {
+    padding:18px;
+    border-width:6px
+  }
+}
