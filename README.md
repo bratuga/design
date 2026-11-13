@@ -1,59 +1,55 @@
-# ModernUX-UI Device Testbench
+# Orbit
 
-Laboratório visual e responsivo do ModernUX-UI.
+Sistema visual para interfaces locais, equipamentos e aplicações. Componentes Web, exemplos de displays e instruções de integração, sem frameworks, fontes remotas ou dependências em execução.
 
-## Objetivo
+**[Referência Web](index.html) · [Displays](displays.html) · [Integrar noutro produto](docs/INTEGRATION.md) · [Especificação](DESIGN.md)**
 
-Esta página existe apenas para testar o design system em vários dispositivos e resoluções:
-- HD
-- Full HD
-- 4K
-- iPhone
-- Samsung Galaxy S23
-- tablets
-- browser desktop
-
-Não é uma aplicação de produção.
-
-## Inclui
-
-- Dashboard e mosaicos
-- Gráficos
-- Tabelas
-- Formulários e configuração
-- Processo com validação de dados
-- Dark mode
-- Densidade compact / comfortable / spacious
-- Menu lateral compacto com botão circular e expansão em leque
-- Modo Web e modo App
-- Dados fictícios locais
-- Sem dependências externas
+Os exemplos usam dados simulados, não controlam equipamentos e não implementam autenticação. As regras de acesso e os comandos pertencem à aplicação que integra o design.
 
 ## Executar
 
-Servir a pasta por HTTP, por exemplo com Python:
+Servir a raiz por HTTP:
 
-    python -m http.server 8080
+```sh
+python -m http.server 8870 --bind 127.0.0.1
+```
 
-Abrir http://localhost:8080
+Abrir `http://127.0.0.1:8870/`. Os seletores Perfil/Estado pertencem à demonstração; não são menus para instalar nos firmwares.
 
+## Estrutura
 
-## IoT Lab
+| Recursos | Finalidade |
+|---|---|
+| `orbit.css` | Paleta, estrutura responsiva, navegação, formulários, indicadores e tabelas |
+| `orbit-controls.css`, `orbit-controls.js` | Tema e comando circular com estado confirmado |
+| `orbit-actions.css` | Interruptor e ação Atualizar; herdam a paleta ativa |
+| `index.html`, `examples/web-demo.js` | Referência interativa Web |
+| `displays.html`, `examples/display-demo.js` | OLED, e-paper, TFT compacto e touch |
+| `docs/` | Integração, adaptação e limites |
+| `test/`, `.github/workflows/orbit.yml` | Testes dos componentes e exemplos |
 
-Abrir `iot.html` para testar OLED 128×64, e-paper, TFT 320×240 e touch 480×320, com telemetria e controlos simulados.
+`orbit.html` e `iot.html` são redirecionamentos de compatibilidade. `sw.js` apenas retira o antigo cache do testbench; não instala cache offline no Orbit. As experiências ModernUX e os protótipos anteriores foram retirados do conteúdo atual; o histórico Git conserva-os.
 
-## Controlos Orbit reutilizáveis
+## Reutilizar
 
-`orbit-actions.css` contém o interruptor com estado visível e o botão Atualizar
-com ícone SVG. Há uma demonstração em `iot.html`. O interruptor usa um botão
-com `role="switch"` e `aria-checked`, atualizado após a confirmação do
-equipamento em aplicações reais. O botão Atualizar executa a leitura pedida
-sem alterar o estado do interruptor. Cada projeto pode ajustar as cores pelos
-tokens de tema.
+1. Identificar capacidades reais e escolher componentes, sem copiar a demonstração inteira.
+2. Fixar um commit do Design e copiar os recursos necessários para a aplicação.
+3. Adaptar o shell à volta dos cartões operacionais existentes.
+4. Ligar componentes a dados/comandos reais através de um adaptador. Não distribuir os simuladores como lógica de controlo.
+5. Validar os dois temas, navegação, teclado, ecrã pequeno e estados de falha.
 
+Orbit pode servir automação, instrumentação, painéis de serviços e outros firmwares. KNX, NTP, RTC, microSD, comando geral e métricas são capacidades opcionais. Seguir o [guia de integração](docs/INTEGRATION.md) e o [guia de displays](docs/DISPLAYS.md).
 
-## Orbit · padrão IoT atual
+## Testar
 
-Abrir [orbit.html](orbit.html) para testar o botão circular da VMC, pressão de 1,5 s, métricas, estados de falha, tema lua/sol, navegação e configuração responsiva. Todos os dados e comandos desta página são simulados. [DESIGN.md](DESIGN.md) documenta a referência e os contratos de integração.
+Dependências apenas de desenvolvimento:
 
-Os componentes reutilizáveis estão em `orbit-controls.css` e `orbit-controls.js`. O menu radial original do Testbench continua disponível como experiência separada.
+```sh
+npm install --prefix .test-deps --no-save --ignore-scripts jsdom@26.1.0
+NODE_PATH="$PWD/.test-deps/node_modules" node test/orbit-controls.cjs
+NODE_PATH="$PWD/.test-deps/node_modules" node test/reference.cjs
+```
+
+Em PowerShell, definir `$env:NODE_PATH` para a pasta `node_modules` antes de executar os comandos Node. Os testes Web não substituem ensaios físicos.
+
+Referência visual: princípios de hierarquia e densidade da análise Linear da biblioteca Awesome DESIGN.md, adaptados ao Orbit verde e aos dois temas. Não é uma reprodução do produto Linear.

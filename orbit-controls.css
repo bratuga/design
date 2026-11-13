@@ -40,16 +40,16 @@
  #railPower[data-state] .rail-power-ring{animation:none}
 }
 @media(max-width:760px){
- .orbit-rail>#railPower{width:50px;height:50px;margin:0 3px;box-shadow:none}
+ .orbit-rail>#railPower{width:76px;height:76px;margin:0 3px;box-shadow:none}
  #railPower :is(.rail-power-track,.rail-power-ring,.rail-power-progress){
   mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
  }
  .rail-power-metrics:not([hidden]){gap:0}
- .rail-power-metrics>span{gap:2px;font-size:10px}
- .orbit-rail .rail-power-icon{width:11px;height:11px}
- .rail-power-centre{max-width:40px;font-size:9px}
+ .rail-power-metrics>span{gap:3px;font-size:11px}
+ .orbit-rail .rail-power-icon{width:15px;height:15px}
+ .rail-power-centre{max-width:54px;font-size:11px}
  .rail-power-centre[data-symbol]{font-size:20px}
- .rail-power-notice:not(:empty){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ .rail-power-notice:not(:empty){display:block;position:static;width:auto;height:auto;overflow:visible;clip-path:none;font-size:12px}
 }
 
 .orbit-rail>.orbit-theme{margin-top:auto;display:flex;justify-content:center;align-items:center;min-height:48px;padding:6px;border:0;background:transparent;color:var(--orbit-muted);cursor:pointer}
@@ -59,11 +59,7 @@
 .orbit-rail :is(button,a):focus-visible{outline:2px solid var(--orbit-accent);outline-offset:3px}
 .orbit-rail [hidden]{display:none!important}
 @media(max-width:760px){
- .orbit-rail{display:grid!important;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:2px!important;align-items:center}
- .orbit-rail>button,.orbit-rail>a:not(.orbit-home){min-width:0;padding:5px 1px;font-size:clamp(8px,2vw,10px);text-align:center}
  .orbit-rail>.orbit-theme{margin-top:0}
- .orbit-theme-track{width:min(46px,100%);height:28px}
- .orbit-theme-track>span{font-size:15px;line-height:24px}
- .orbit-rail>#railPower{width:46px;height:46px;margin:0 auto}
- .rail-power-metrics>span{font-size:8px;gap:1px}
+ .orbit-theme-track{width:60px;height:30px}
+ .orbit-theme-track>span{font-size:17px;line-height:26px}
 }
